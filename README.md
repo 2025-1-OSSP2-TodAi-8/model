@@ -82,12 +82,8 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 - Δ 벡터를 모델에 입력하여 개인화된 감정 예측 가능
 
 
-## 음성 파일 플레이어
-<audio controls>
-  <source src="M0001_114169.wav" type="audio/wav">
-  브라우저가 audio 태그를 지원하지 않습니다.
-</audio>
-
+## 음성 파일 듣기
+[M0001_114169.wav](M0001_114169.wav)
   
 🔥 Model card: **HyukII/audio-emotion-model**
 
