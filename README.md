@@ -71,9 +71,6 @@ def analyze_diary_percent(diary_text, max_len=256, return_details=False):
 - analyze_diary_percent(diary_text)  (diary_text : 일기 내용)
 
 
-### 🔥 Model card: 
-**HyukII/text-emotion-model**
-
 ### 🔥 Load in code:
 
 ```python
@@ -163,9 +160,6 @@ def compute_baseline_vectors(file_paths):
 - 5.1 코드를 사용하여 일기파일음성용 시퀀스벡터를 만든다
 - 두 벡터의 차이값을 모델의 입력값으로 넣는다  delta 벡터 = (일기파일 음성용 벡터 - 베이스벡터 평균) / 베이스벡터 표준편차
 
-
-
-### 🔥 Model card : **HyukII/audio-emotion-model**
 
 ### 🔥 Load in code:
 ```python
