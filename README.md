@@ -28,7 +28,7 @@
 - 정규화: Dropout=0.1, max_grad_norm=1.0
 
 
-<img width="1000" height="900" alt="image" src="https://github.com/user-attachments/assets/aba3f228-801c-45a2-89d0-2c63d745a173" />
+<img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/aba3f228-801c-45a2-89d0-2c63d745a173" />
 
 
 
@@ -80,6 +80,13 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 - 남자, 여자용  Neutral Baseline Vector를 먼저 저장
 - 새로운 발화 입력 시 → Δ = (현재 벡터 – baseline) 계산
 - Δ 벡터를 모델에 입력하여 개인화된 감정 예측 가능
+
+
+## 음성 파일 플레이어
+<audio controls>
+  <source src="M0001_114169.wav" type="audio/wav">
+  브라우저가 audio 태그를 지원하지 않습니다.
+</audio>
 
   
 🔥 Model card: **HyukII/audio-emotion-model**
