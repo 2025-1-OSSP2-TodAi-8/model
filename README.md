@@ -119,7 +119,7 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 - Δ 벡터를 모델에 입력하여 개인화된 감정 예측 가능
 
 
-### 음성 파일 반환 형식
+### 음성 분석 반환 형식
 <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/efd6f2a2-1d85-4fba-8519-0ba57760f3b5" />
 
 
