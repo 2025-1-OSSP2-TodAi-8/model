@@ -26,7 +26,11 @@
 - 최적화 기법: AdamW (lr=2e-5, weight_decay=0.01)
 - 훈련 설정: batch size=16, epoch 5~6, Early Stopping(patience=2)
 - 정규화: Dropout=0.1, max_grad_norm=1.0
-  
+
+
+<img width="1000" height="900" alt="image" src="https://github.com/user-attachments/assets/aba3f228-801c-45a2-89d0-2c63d745a173" />
+
+
 
 🔥 Model card: **HyukII/text-emotion-model**
 
