@@ -120,8 +120,9 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 
 
 #### 🔊 음성 파일 듣기
-[M0001_114169.wav](M0001_114169.wav)
-
+<audio controls>
+  <source src="https://username.github.io/emotion-analysis-pipeline/sample.wav" type="audio/wav">
+</audio>
 <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/efd6f2a2-1d85-4fba-8519-0ba57760f3b5" />
 
 
