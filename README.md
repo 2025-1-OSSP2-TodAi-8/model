@@ -120,9 +120,7 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 
 
 #### 🔊 음성 파일 듣기
-<audio controls>
-  <source src="https://github.com/2025-1-OSSP2-TodAi-8/model.git/M0001_114169.wav" type="audio/wav">
-</audio>
+[샘플 듣기 (M0001_114169.wav)](./M0001_114169.wav)
 <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/efd6f2a2-1d85-4fba-8519-0ba57760f3b5" />
 
 
