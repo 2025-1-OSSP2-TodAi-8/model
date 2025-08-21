@@ -8,3 +8,6 @@
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 tok = AutoTokenizer.from_pretrained("HyukII/text-emotion-model")
 model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-model").eval()
+
+---
+## 
