@@ -1,4 +1,4 @@
-## Pretrained Model
+## 텍스트 기반 감정 분석 모델
 
 [![🤗 Hugging Face](https://img.shields.io/badge/HuggingFace-Model-yellow)](https://huggingface.co/HyukII/my-emotion-text)
 
