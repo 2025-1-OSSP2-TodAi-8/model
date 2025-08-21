@@ -50,7 +50,6 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 본 프로젝트에서는 음성에서 MFCC(Mel-Frequency Cepstral Coefficients)정보를 추출하고 있음
 - MFCC (Mel-Frequency Cepstral Coefficients): 음성의 주파수 스펙트럼을 요약한 13차원 계수
 - 고정된 시퀀스 길이: 100 프레임으로 맞추어 CNN-LSTM 모델에 입력 가능
-- 패딩 / 자르기 처리: 발화 길이가 짧으면 0으로 패딩, 길면 잘라냄
 - 사용 라이브러리: librosa, numpy
 
 ### 🔎 3. 모델 구조
@@ -63,7 +62,7 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 ### ⚙️ 4.학습 방법
 4.1. 데이터셋 구성
 - 훈련 데이터 : AiHub의 '감정 음성 데이터셋' (https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&dataSetSn=637)
-- 사용자 음성 → 9~13차원 특징 벡터(MFCC 등) 시퀀스로 변환
+- 사용자 음성 → 13차원 특징 벡터(MFCC 등) 시퀀스로 변환
 - 레이블: 감정 클래스 (예: JOY, SAD, ANGRY 등)
 - 불균형 보완: 데이터 증강(속도 변환, 피치 쉬프트)
 
