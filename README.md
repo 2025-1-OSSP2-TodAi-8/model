@@ -12,7 +12,7 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 ---
 ## 오디오 기반 감정 분석 모델
 [![🤗 Model on HF](https://img.shields.io/badge/HuggingFace-Audio%20Emotion%20Model-yellow)](https://huggingface.co/HyukII/audio-emotion-model)
-- Model card: **HyukII/text-emotion-model**
+- Model card: **HyukII/audio-emotion-model**
 - Load in code:
 ```python
 import json, torch, numpy as np
