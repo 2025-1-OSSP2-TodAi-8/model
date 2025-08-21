@@ -30,11 +30,51 @@
 
 <img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/aba3f228-801c-45a2-89d0-2c63d745a173" />
 
+### 4. 모델 사용 
+#### 4.1. 문장 단위 집계 코드(문장 마다 예측 -> 개수 비율로 퍼센트 계산)
+```python
+def split_sents(text):
+    # 마침표/물음표/느낌표/줄바꿈 기준
+    return [s.strip() for s in re.split(r'[.?!\n]', text) if s.strip()]
+
+def analyze_diary_percent(diary_text, max_len=256, return_details=False):
+    sents = split_sents(diary_text)
+    if not sents:
+        print("문장이 없습니다."); return {}
+
+    counts = {id2label[i]: 0 for i in range(num_labels)}
+    details = []
+
+    with torch.no_grad():
+        for s in sents:
+            enc = tok(s, truncation=True, padding=True, max_length=max_len, return_tensors="pt").to(device)
+            logits = model(**enc).logits
+            pred = int(logits.argmax(-1).cpu().numpy()[0])
+            lab = id2label[pred]
+            counts[lab] += 1
+            if return_details: details.append((s, lab))
+
+    total = sum(counts.values())
+    perc = {lab: round((counts.get(lab, 0) / total) * 100, 2) if total > 0 else 0.0 for lab in id2label.values()}
+
+    print("=== 텍스트 기반 감정 분석 ===")
+    for lab, pct in sorted(perc.items(), key=lambda x: -x[1]):
+        print(f"{lab:<5}: {pct:5.2f}% ")
+    print("============================")
 
 
-🔥 Model card: **HyukII/text-emotion-model**
+```
 
-🔥 Load in code:
+#### 4.3 모델 사용 시나리오
+- 모델은 일기 텍스트의 한줄 한줄을 받아 감정을 분석한다
+- 총 일기 텍스트를 문장 단위로 끊은 후 문장 마다 감정을 분석한 후 총 일기 내용의 감정을 수치화 한다 
+- analyze_diary_percent(diary_text)  (diary_text : 일기 내용)
+
+
+### 🔥 Model card: 
+**HyukII/text-emotion-model**
+
+### 🔥 Load in code:
 
 ```python
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -88,9 +128,46 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/efd6f2a2-1d85-4fba-8519-0ba57760f3b5" />
 
 
-🔥 Model card: **HyukII/audio-emotion-model**
+### 5. 모델 사용
+#### 5.1 시퀀스 음성 파일 만드는 코드
+```python
+def extract_sequence_features(wav_path, max_len=100): #wav_path = 음성파일명
+    y, sr = librosa.load(wav_path, sr=None)
+    mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13).T  # (time, 13)
+    if len(mfcc) < max_len:
+        pad_width = max_len - len(mfcc)
+        mfcc = np.pad(mfcc, ((0, pad_width), (0, 0)), mode='constant')
+    else:
+        mfcc = mfcc[:max_len]
+    return mfcc
+```
 
-🔥 Load in code:
+#### 5.2.베이스라인 벡터 추출하는 코드 
+
+```python
+def compute_baseline_vectors(file_paths):
+    all_vectors = []
+    for path in file_paths:
+        seq = extract_sequence_features(path)  # shape (100, 13)
+        mean_vec = np.mean(seq, axis=0)        # shape (13,)
+        all_vectors.append(mean_vec)
+    all_vectors = np.stack(all_vectors)        # shape (15, 13)
+
+    baseline_mean = np.mean(all_vectors, axis=0)
+    baseline_std = np.std(all_vectors, axis=0)
+
+    return baseline_mean, baseline_std
+```
+#### 5.3. 모델 사용 시나리오
+- 5.1과 5.2 코드를 사용하여 중립음성용 시퀀스베이스벡터를 만든다 => 베이스벡터 평균, 베이스 벡터 표준편차 벡터 얻기
+- 5.1 코드를 사용하여 일기파일음성용 시퀀스벡터를 만든다
+- 두 벡터의 차이값을 모델의 입력값으로 넣는다  delta 벡터 = (일기파일 음성용 벡터 - 베이스벡터 평균) / 베이스벡터 표준편차
+
+
+
+### 🔥 Model card : **HyukII/audio-emotion-model**
+
+### 🔥 Load in code:
 ```python
 import json, torch, numpy as np
 from huggingface_hub import hf_hub_download
