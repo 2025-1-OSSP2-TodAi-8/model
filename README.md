@@ -3,17 +3,17 @@
 [![🤗 Hugging Face](https://img.shields.io/badge/HuggingFace-Text%20Emotion%20Model-yellow)](https://huggingface.co/HyukII/text-emotion-model)
 
 
-### 📌 1. 개요
+### 1. 개요
 - 사용자가 작성하거나 음성에서 변환된 텍스트 데이터를 입력으로 받아 감정을 분류하는 모델.
 - 한국어에 특화된 klue/roberta-base 사전학습 언어모델을 파인튜닝하여 구현되었다.
 - 앱에서 녹음된 음성은 STT(Speech-to-Text) 과정을 거쳐 텍스트로 변환되며, 택스트 모델의 입력값으로 사용된다.
 
-### 🔎 2. 모델 구조
+### 2. 모델 구조
 - 구조: Transformer 기반 사전학습 모델(klue/roberta-base)
 - Embedding & Encoder: 입력 문장을 토큰화하여 Transformer 인코더로 특징 추출
 - 출력: 6개 감정 클래스 확률 (ANGRY, SAD, DISGUST, HAPPY, FEAR, SURPRISE)
 
-### ⚙️ 3. 학습 방법
+### 3. 학습 방법
 3.1. 데이터셋 구성
 - 훈련 데이터 : AiHub의 '공감형 대화' (https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&dataSetSn=7130)
 - 전처리: 최대 길이 256 토큰으로 토큰화
@@ -71,7 +71,7 @@ def analyze_diary_percent(diary_text, max_len=256, return_details=False):
 - analyze_diary_percent(diary_text)  (diary_text : 일기 내용)
 
 
-### 🔥 Load in code:
+### 코드 불러오기:
 
 ```python
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -82,25 +82,25 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 ## 🎤 오디오 기반 감정 분석 모델
 [![🤗 Model on HF](https://img.shields.io/badge/HuggingFace-Audio%20Emotion%20Model-yellow)](https://huggingface.co/HyukII/audio-emotion-model)
 
-### 📌 1. 개요
+### 1. 개요
 - 사용자의 녹음 음성을 입력받아 음향적 특징을 추출하고 감정을 분류하는 모델
 - 텍스트 분석 모델과 달리, 목소리의 억양·속도·에너지·스펙트럼 변화 등을 활용해 감정을 감지
 - 일기 텍스트가 긍정적으로 작성되더라도, 목소리 톤이 우울하다면 실제 감정을 보완적으로 파악할 수 있음
 
-### 🛠️ 2. 특징 추출 (Feature Extraction) 
+### 2. 특징 추출 (Feature Extraction) 
 본 프로젝트에서는 음성에서 MFCC(Mel-Frequency Cepstral Coefficients)정보를 추출하고 있음
 - MFCC (Mel-Frequency Cepstral Coefficients): 음성의 주파수 스펙트럼을 요약한 13차원 계수
 - 고정된 시퀀스 길이: 100 프레임으로 맞추어 CNN-LSTM 모델에 입력 가능
 - 사용 라이브러리: librosa, numpy
 
-### 🔎 3. 모델 구조
+### 3. 모델 구조
 - CNN + BiLSTM 기반 시퀀스 모델
 - Conv1D → 음향 스펙트럼 특징 추출
 - BiLSTM → 시간적 변화 패턴 학습
 - Dense + Softmax → 감정 클래스 확률 출력
 
 
-### ⚙️ 4.학습 방법
+### 4.학습 방법
 4.1. 데이터셋 구성
 - 훈련 데이터 : AiHub의 '감정 음성 데이터셋' (https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&dataSetSn=637)
 - 사용자 음성 → 13차원 특징 벡터(MFCC 등) 시퀀스로 변환
@@ -119,11 +119,7 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 - Δ 벡터를 모델에 입력하여 개인화된 감정 예측 가능
 
 
-#### 🔊 음성 파일 듣기
-<audio controls>
-  <source src="./M0001_114169.wav" type="audio/wav">
-  브라우저가 audio 태그를 지원하지 않습니다.
-</audio>
+#### 음성 파일 반환 형식
 <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/efd6f2a2-1d85-4fba-8519-0ba57760f3b5" />
 
 
@@ -163,7 +159,7 @@ def compute_baseline_vectors(file_paths):
 - 두 벡터의 차이값을 모델의 입력값으로 넣는다  delta 벡터 = (일기파일 음성용 벡터 - 베이스벡터 평균) / 베이스벡터 표준편차
 
 
-### 🔥 Load in code:
+### 코드 불러오기:
 ```python
 import json, torch, numpy as np
 from huggingface_hub import hf_hub_download
