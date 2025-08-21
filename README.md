@@ -120,7 +120,10 @@ model = AutoModelForSequenceClassification.from_pretrained("HyukII/text-emotion-
 
 
 #### 🔊 음성 파일 듣기
-[샘플 듣기 (M0001_114169.wav)](./model/M0001_114169.wav)   
+<audio controls>
+  <source src="./M0001_114169.wav" type="audio/wav">
+  브라우저가 audio 태그를 지원하지 않습니다.
+</audio>
 <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/efd6f2a2-1d85-4fba-8519-0ba57760f3b5" />
 
 
